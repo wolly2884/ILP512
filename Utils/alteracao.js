@@ -2,10 +2,10 @@ const connection = require('../Conexao/database');
 
 function execSQLQuery(data, res) {
     // Verifica se foi fornecido um ID válido
-    if (!data.ID || isNaN(data.ID)) {
-        console.error('ID inválido:', data.ID);
+    if (!data.id || isNaN(data.id)) {
+        console.error('id inválido:', data.id);
         if (res) {
-            res.status(400).json({ error: 'ID inválido' });
+            res.status(400).json({ error: 'id inválido' });
         }
         return;
     }
@@ -15,7 +15,7 @@ function execSQLQuery(data, res) {
     const values = [];
 
     for (const key in data) {
-        if (key !== 'ID') { // Ignora o campo ID
+        if (key !== 'id') { // Ignora o campo ID
             setClause += `${key} = ?, `;
             values.push(data[key]);
         }
@@ -25,8 +25,8 @@ function execSQLQuery(data, res) {
     setClause = setClause.slice(0, -2);
 
     // Constrói a consulta SQL completa
-    const sqlQuery = `UPDATE Beneficiarios SET ${setClause} WHERE ID = ?`;
-    values.push(data.ID); // Adiciona o ID ao final do array de valores
+    const sqlQuery = `UPDATE Beneficiarios SET ${setClause} WHERE id = ?`;
+    values.push(data.id); // Adiciona o ID ao final do array de valores
 
     // Executa a consulta SQL no banco de dados
     connection.query(sqlQuery, values, (err, result) => {
@@ -37,7 +37,7 @@ function execSQLQuery(data, res) {
             }
             return;
         }
-        console.log(`Dados atualizados com sucesso para o ID ${data.ID}`);
+        console.log(`Dados atualizados com sucesso para o ID ${data.id}`);
         if (res) {
             res.json({ success: true });
         }
