@@ -28,6 +28,8 @@ function execSQLQuery(data, res) {
     const sqlQuery = `UPDATE Beneficiarios SET ${setClause} WHERE id = ?`;
     values.push(data.id); // Adiciona o ID ao final do array de valores
 
+    console.log(sqlQuery)
+    console.log(values)
     // Executa a consulta SQL no banco de dados
     connection.query(sqlQuery, values, (err, result) => {
         if (err) {
